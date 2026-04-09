@@ -45,6 +45,13 @@ window.onload = function () {
         shadow: true
     });
 
+    new xeogl.DirLight({
+        dir: [0.8, -1.0, -0.8],
+        color: [1.0, 1.0, 1.0],
+        intensity: 0.5,
+        space: "view" // This makes the light move with the camera (headlamp effect)
+    });
+        
     // 2. Make light "visible" by placing a small emissive sphere at lightPos
     new xeogl.Mesh({
         geometry: new xeogl.SphereGeometry({ radius: 1 }),
@@ -61,8 +68,8 @@ window.onload = function () {
     // 3. Make detector plane mesh visible (Wireframe + color)
     new xeogl.Mesh({
         geometry: new xeogl.PlaneGeometry({
-            xSize: 2,
-            zSize: 2,
+            xSize: 10,
+            zSize: 10,
             xSegments: 50, 
             zSegments: 50
         }),
@@ -95,7 +102,7 @@ window.onload = function () {
                 alpha: 0.6,
                 alphaMode: "blend",
                 backfaces: true,
-                shininess: 10
+                shininess: 0
             });
         });
     });
