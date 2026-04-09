@@ -42,7 +42,7 @@ window.onload = function () {
     // without "shining" light from the camera's perspective.
     new xeogl.AmbientLight({
         color: [1.0, 1.0, 1.0],
-        intensity: 0.2 
+        intensity: 0.1 
     });
 
     // Light Indicator
@@ -67,7 +67,7 @@ window.onload = function () {
         }),
         material: new xeogl.PhongMaterial({
             diffuse: [0.4, 0.4, 0.4],
-            backfaces: true, // Allow seeing it from both sides
+            backfaces: false, // Allow seeing it from both sides
             wireframe: true
         }),
         position: [0, 0, 80],
@@ -92,7 +92,7 @@ window.onload = function () {
                 transparent: true,
                 alphaMode: "blend",
                 backfaces: false,      // CRITICAL: Hide internal lit faces
-                shininess: 20          // Adds some hardware-like specularity
+                shininess: 0          // Adds some hardware-like specularity
             });
         });
     });
