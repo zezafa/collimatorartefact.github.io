@@ -66,10 +66,11 @@ window.onload = function () {
         material: new xeogl.PhongMaterial({
             diffuse: [0.2, 0.4, 0.8],
             backfaces: true,
-            lineWidth: 2,
-            wireframe: true // Makes the grid/mesh visible
+            wireframe: true,
+            lineWidth: 2
         }),
-        position: [0, 0, 30]
+        position: [0, 0, 30],
+        rotation: [90, 0, 0] // Rotate 90 degrees on the X-axis to face the camera
     });
 
     // =========================
