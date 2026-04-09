@@ -32,26 +32,13 @@ window.onload = function () {
     // LIGHTS (behind STL)
     // =========================
 
-    // Attenuated light (realistic falloff)
-    new xeogl.PointLight({
-        pos: [0, 0, -5],
-        color: [1, 1, 1],
-        intensity: 1.0,
-        attenuation: [0.1, 0.1, 0.1]
-    });
 
     // Non-attenuated light (collimator-like)
     new xeogl.PointLight({
-        pos: [0, 0, -5],
+        pos: [0, 0, -50],
         color: [1, 0.9, 0.7],
-        intensity: 0.7,
+        intensity: 1,
         attenuation: [0, 0, 0]
-    });
-
-    // Ambient light (low)
-    new xeogl.AmbientLight({
-        color: [0.1, 0.1, 0.1],
-        intensity: 0.5
     });
 
     // =========================
@@ -59,14 +46,14 @@ window.onload = function () {
     // =========================
     new xeogl.Mesh({
         geometry: new xeogl.PlaneGeometry({
-            xSize: 10,
-            ySize: 10
+            xSize: 100,
+            ySize: 100
         }),
         material: new xeogl.PhongMaterial({
             diffuse: [0.2, 0.4, 0.8],
             backfaces: true
         }),
-        position: [0, 0, 3]
+        position: [0, 0, 30]
     });
 
     // =========================
@@ -75,7 +62,7 @@ window.onload = function () {
     const model = new xeogl.STLModel({
         src: "collimator.stl",   // <--  STL file
         smoothNormals: true,
-        scale: [1, 1, 1],
+        scale: [0.5, 0.5, 0.5],
         position: [0, 0, 0]
     });
 
