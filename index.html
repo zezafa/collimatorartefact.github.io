@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>xeogl STL Collimator Demo</title>
 
-    <!-- Stable xeogl -->
     <script src="https://cdn.jsdelivr.net/npm/xeogl@0.9.0/build/xeogl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xeogl@0.9.0/examples/js/models/STLModel.js"></script>
 
@@ -23,29 +22,42 @@ window.onload = function () {
     // =========================
     var scene = xeogl.getDefaultScene();
 
+    // 1. Make background white
+    scene.canvas.backgroundColor = [1.0, 1.0, 1.0];
+
     scene.clearLights();
 
     new xeogl.CameraControl();
 
-    scene.camera.eye = [0, 0, 10];
+    scene.camera.eye = [0, 0, 80]; // Pulled back to see the whole setup
     scene.camera.look = [0, 0, 0];
 
     // =========================
     // LIGHTS (behind STL)
     // =========================
+    var lightPos = [0, 0, -50];
 
-
-    // Non-attenuated light (collimator-like)
     new xeogl.PointLight({
-        pos: [0, 0, -50],
+        pos: lightPos,
         color: [1, 0.9, 0.7],
         intensity: 1,
         attenuation: [0, 0, 0]
     });
 
+    // 2. Make light "visible" by placing a small emissive sphere at lightPos
+    new xeogl.Mesh({
+        geometry: new xeogl.SphereGeometry({ radius: 1 }),
+        material: new xeogl.PhongMaterial({
+            emissive: [1, 0.9, 0.3], // Glow effect
+            diffuse: [0, 0, 0]
+        }),
+        position: lightPos
+    });
+
     // =========================
     // DETECTOR PLANE
     // =========================
+    // 3. Make detector plane mesh visible (Wireframe + color)
     new xeogl.Mesh({
         geometry: new xeogl.PlaneGeometry({
             xSize: 100,
@@ -53,7 +65,9 @@ window.onload = function () {
         }),
         material: new xeogl.PhongMaterial({
             diffuse: [0.2, 0.4, 0.8],
-            backfaces: true
+            backfaces: true,
+            lineWidth: 2,
+            wireframe: true // Makes the grid/mesh visible
         }),
         position: [0, 0, 30]
     });
@@ -62,27 +76,22 @@ window.onload = function () {
     // STL MODEL
     // =========================
     const model = new xeogl.STLModel({
-        src: "collimator.stl",   // <--  STL file
+        src: "collimator.stl",
         smoothNormals: true,
         scale: [0.5, 0.5, 0.5],
         position: [0, 0, 0]
     });
 
-    // Apply material AFTER load (FIXED)
     model.on("loaded", () => {
-
         Object.values(model.meshes).forEach(mesh => {
-
             mesh.material = new xeogl.PhongMaterial({
-                diffuse: [0.8, 0.8, 0.8],
-                alpha: 0.4,
-                alphaMode: "blend",   // REQUIRED for transparency
+                diffuse: [0.5, 0.5, 0.5],
+                alpha: 0.6,
+                alphaMode: "blend",
                 backfaces: true,
                 shininess: 10
             });
-
         });
-
     });
 
 };
