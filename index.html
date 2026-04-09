@@ -21,7 +21,9 @@ window.onload = function () {
     // =========================
     // SCENE + CAMERA
     // =========================
-    const scene = new xeogl.Scene();
+    var scene = xeogl.getDefaultScene();
+
+    scene.clearLights();
 
     new xeogl.CameraControl();
 
