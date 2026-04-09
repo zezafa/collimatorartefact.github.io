@@ -61,8 +61,8 @@ window.onload = function () {
     // 3. Make detector plane mesh visible (Wireframe + color)
     new xeogl.Mesh({
         geometry: new xeogl.PlaneGeometry({
-            xSize: 100,
-            zSize: 100,
+            xSize: 2,
+            zSize: 2,
             xSegments: 50, 
             zSegments: 50
         }),
@@ -72,7 +72,7 @@ window.onload = function () {
             wireframe: true,
             lineWidth: 2
         }),
-        position: [0, 0, 30],
+        position: [0, 0, 80],
         rotation: [90, 0, 0], // Rotate 90 degrees on the X-axis to face the camera
         receiveShadow: true
     });
