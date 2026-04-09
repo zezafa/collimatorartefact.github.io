@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- Stable xeogl version -->
+    <script src="https://cdn.jsdelivr.net/npm/xeogl@0.9.0/build/xeogl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xeogl@0.9.0/examples/js/models/STLModel.js"></script>
+</head>
+<body>
+
+<script>
+window.onload = function () {
+
+    const scene = new xeogl.Scene();
+
+    new xeogl.CameraControl();
+
+    scene.camera.eye = [0, 0, 10];
+
+    // Light behind object
+    new xeogl.PointLight({
+        pos: [0, 0, -5],
+        intensity: 1.0,
+        attenuation: [0.1, 0.1, 0.1]
+    });
+
+    // Flat detector plane
+    new xeogl.Mesh({
+        geometry: new xeogl.PlaneGeometry({
+            xSize: 10,
+            ySize: 10
+        }),
+        material: new xeogl.PhongMaterial({
+            diffuse: [0.3, 0.3, 0.8]
+        }),
+        position: [0, 0, 3]
+    });
+
+    // STL model
+    const model = new xeogl.STLModel({
+        src: "collimator.stl",
+        smoothNormals: true
+    });
+
+    model.on("loaded", () => {
+        model.meshes.forEach(mesh => {
+            mesh.material = new xeogl.PhongMaterial({
+                diffuse: [0.8, 0.8, 0.8],
+                alpha: 0.4,
+                backfaces: true
+            });
+        });
+    });
+
+};
+</script>
+
+</body>
+</html>
